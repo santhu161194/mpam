@@ -1,0 +1,5 @@
+org/medplus/assetmanagementwebapp/controller/AssetController.class
+org/medplus/assetmanagementcore/interceptor/LoginInterceptor.class
+org/medplus/assetmanagementwebapp/controller/LoginController.class
+org/medplus/assetmanagementwebapp/controller/EmployeeController.class
+org/medplus/assetmanagementcore/utils/AppConfig.class
