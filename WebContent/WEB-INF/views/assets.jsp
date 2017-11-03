@@ -74,8 +74,8 @@
           
  <ul class="list-unstyled components">
   
-  <li><a id="ViewAssetRequests" class="showhide">Requests</a></li><br>
-   <li><a ="assets">Assets</a></li><br>
+  <li><a href="EDPHome">Requests</a></li><br>
+   <li><a href="#">Assets</a></li><br>
    
   </ul>
   </nav>
@@ -85,8 +85,51 @@
 	
 	
 	<div id="content">
-	
-		</div>	
+		<h3 align="center">${viewdetails}</h3>
+		
+	<h4><j:out value="${updatestatus}"></j:out></h4>
+	<input class="form-control" id="myInput" type="text" placeholder="Search Request here....">
+	<div style="overflow:scroll;height:400px;width:100%;overflow:auto">
+	<table border="2">
+		<tr>
+			<th> assetId
+			<th>serialNumber
+			<th>assetName
+			<th>assetType
+			<th>cost
+			<th> status
+		
 			
-</body>
+		</tr>
+		<tbody id="myTable">
+		<j:forEach var="asset" items="${assets}">
+			<tr>
+				<td><j:out value="${asset.assetId} "></j:out></td>
+				<td><j:out value="${asset.serialNumber} "></j:out></td>
+				<td><j:out value="${asset.assetName} "></j:out></td>
+				<td><j:out value="${asset.assetType} "></j:out></td>
+				<td><j:out value="${asset.cost} "></j:out></td>
+				<td><j:out value="${asset.status} "></j:out></td>
+								
+				<j:if test="${viewdetails eq 'Available Assets'}">
+				<td><a class="showhide" id="allocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">Allocate Asset</a></td>
+				</j:if>
+				<j:if test="${viewdetails eq 'Allocated Assets'}">
+				<td><a class="showhide" id="deallocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">DeAllocate Asset</a></td>
+				</j:if>
+				<j:if test="${viewdetails eq 'All Assets'}">
+				<j:if test="${requestrole eq 'admin'}">
+				<td><a class="showhide" id="UpdateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">Update</a>
+				</j:if>
+				</j:if>
+				</tr>
+				</j:forEach>
+				</tbody>
+				</table>
+				</div>
+			
+			</div>
+				</body>
+  
+
 </html>

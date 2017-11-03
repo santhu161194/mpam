@@ -21,7 +21,7 @@
 		<table align="center">
 			<tr>
 				<td>EmployeeId</td>
-				<td><input name=employeeID  value="${requestedBy}" required/></td>
+				<td><input name=employeeID  value="${requestedBy}" required="true"/></td>
 				<td>
 			<tr>
 				<td>AssetId</td>

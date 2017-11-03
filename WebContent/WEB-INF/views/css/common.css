@@ -93,7 +93,7 @@ margin-left:20px;
 }
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: black;
+    background: white;
     color: white;
     transition: all 0.3s;
 }
@@ -117,14 +117,17 @@ margin-left:20px;
     padding: 10px;
     font-size: 1.1em;
     display: block;
+     line-height: 2;
 }
+
 #sidebar ul li a:hover {
     color: #7386D5;
-    background: #fff;
+    background: #adebf6;
+    
 }
 
 #details{
-	width: 100%;
+width: 100%;
 height: 100px;
 background-color: grey;
 margin-top: -20px;
@@ -140,9 +143,20 @@ margin-top: -20px;
 	
 }
 
-	#welcome {
+#welcome {
     font-size: larger;
     margin-left: 22px;
 
 }
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+    background-color: #eeeeee;
+}
+
+.list-unstyled a {
+    padding-left: 0;
+    list-style: none;
+    text-decoration: none;
+    color:black;
 }

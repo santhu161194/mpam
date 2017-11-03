@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.medplus.assetmanagementcore.exceptions.AssetException;
 import org.medplus.assetmanagementcore.exceptions.AuthenticationException;
 import org.medplus.assetmanagementcore.exceptions.EmployeeException;
 import org.medplus.assetmanagementcore.model.Employee;
+import org.medplus.assetmanagementcore.service.AssetService;
 import org.medplus.assetmanagementcore.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,6 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	AssetService assetService;
+
 
 	Employee employee;
 
@@ -72,11 +78,19 @@ public class LoginController {
 			session.setAttribute("role", roles);
 			if (roles.contains("admin")) {
 				mav.setViewName("AdminHome");
-			} else if (roles.contains("edp")) {
+			} /*else if (roles.contains("edp")) {
 				mav.setViewName("EDPHome");
 
-			} else {
-				mav.setViewName("EmployeeHome");
+			}*/ else {
+//				mav.setViewName("EmployeeHome");
+				 try {
+						List<String> types =assetService.getAllAssetTypes();
+						System.out.println("a"+types);
+						mav.addObject("types",types);
+					} catch (AssetException e) {
+						e.printStackTrace();
+					}
+				mav.setViewName("EmpHome");
 
 			}
 		}
@@ -177,7 +191,16 @@ public class LoginController {
 	@RequestMapping(value = "/employee", method = RequestMethod.GET)
 	public ModelAndView EmployeeHome(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("EmployeeHome");
+//		mav.setViewName("EmployeeHome");
+		 try {
+			List types =assetService.getAllAssetTypes();
+			mav.addObject("types",types);
+		} catch (AssetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mav.setViewName("EmpHome");
+
 		return mav;
 	}
 

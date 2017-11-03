@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style>
 table{
@@ -63,20 +62,20 @@ $(document).ready(function(){
       <input class="form-control" id="myInput" type="text" placeholder="Search Asset here....">
     <table border="2" class="table table-striped">
         <tr>
-            <th> assetId
-            <th>serialNumber
-            <th>assetName
-            <th>assetType
-            <th>cost
+            <th> AssetId
+             <th>AssetType
+             <th>AssetName/Model
+            <th>SerialNumber/Tag
+            <th>Cost
             
         </tr>
         <tbody id="myTable">
         <j:forEach var="asss" items="${assets}">
             <tr>
                <td><a data-toggle="tooltip" data-placement="bottom" title="Asset Info!"  class="showhide" id="assetInfo?assetId=<j:out value="${asss.assetId}"></j:out>"><j:out value="${asss.assetId}"></j:out></a></td>
-               <td><j:out value="${asss.serialNumber} "></j:out></td>
-                <td><j:out value="${asss.assetName} "></j:out></td>
                 <td><j:out value="${asss.assetType} "></j:out></td>
+                 <td><j:out value="${asss.assetName} "></j:out></td>
+               <td><j:out value="${asss.serialNumber} "></j:out></td>
                 <td><j:out value="${asss.cost} "></j:out></td>
                 </tr>
                 </j:forEach>

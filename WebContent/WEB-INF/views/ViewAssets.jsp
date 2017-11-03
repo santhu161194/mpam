@@ -61,12 +61,19 @@ $(document).ready(function(){
 	<div style="overflow:scroll;height:400px;width:100%;overflow:auto">
 	<table border="2">
 		<tr>
-			<th> assetId
-			<th>serialNumber
-			<th>assetName
-			<th>assetType
-			<th>cost
-			<th> status
+			<th> AssetId
+			<th>SerialNumber
+			<th>AssetName
+			<th>AssetType
+			<th>Cost
+			<th> Status
+		
+		   <j:if test="${viewdetails eq 'Allocated Assets'}">
+		   <th>
+		   AssignedTo
+		   <th>
+		   Employee-Name
+				</j:if>
 		
 			
 		</tr>

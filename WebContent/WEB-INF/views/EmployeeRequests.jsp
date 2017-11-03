@@ -52,20 +52,23 @@ $(document).ready(function(){
         </div>
     <h4><j:out value="${updatestatus}"></j:out></h4>
     <input class="form-control" id="myInput" type="text" placeholder="Search Request here....">
-    
+    <div id="div1">
     <table border="2">
           <table id="table" border="2" margin: 10px; >
         <tr id="th">
-            <th id="th"> Employee ID
+          <!--   <th id="th"> Employee ID -->
             <th id="th">Asset-Type
-            <th id="th">Requested-Date   
+            <th id="th">Requested-Date  
+            <th id="th">Status
+            <th id="th">Remark 
         </tr>
         <tbody id="myTable">
         <j:forEach var="requestList" items="${requestList}">
             <tr id="th">
-                <td id="th"><j:out value="${requestList.employeeId} "></j:out></td>
-                <td id="th"><j:out value="${requestList.assetType} "></j:out></td>
+<%--                 <td id="th"><j:out value="${requestList.employeeId} "></j:out></td>
+ --%>                <td id="th"><j:out value="${requestList.assetType} "></j:out></td>
                 <td id="th"><j:out value="${requestList.requestDate} "></j:out></td>
+                <td id="th"><j:out value="${requestList.status} "></j:out></td>
                 
                 <%-- <td><j:out value="${asss.createdDate} "></j:out></td>
                 <td><j:out value="${asss.createdBy} "></j:out></td>
@@ -76,7 +79,43 @@ $(document).ready(function(){
                 </j:forEach>
                 </tbody>
                 </table>
+                </div>
+                <div id="div2">
+                <div id="id2">
+			<hr>
+		<h3 align="center">New Type Of Asset Requests</h3>
+		</div><!--2 tbl  -->
+			
+			<div style="overflow:scroll;height:200px;width:100%;overflow:auto">
+	<table border="2">
+		<tr>
+			
+			
+			<th>assetType
+			
+			<th>assetName
+			
+			<th>Request Date
+			
+			<th>Remark
+			
+		</tr>
+		  <tbody id="myTable">
+		<j:forEach var="newAssetReq" items="${newAssetRequests}">
+			<tr>
+				<td><j:out value="${newAssetReq.assetType} "></j:out></td>
+				<td><j:out value="${newAssetReq.assetName} "></j:out></td>
+				<td><j:out value="${newAssetReq.requestDate} "></j:out></td>
+				<td></td>
+				
+				</tr>
+				</j:forEach>
+				</tbody>
+				</table>
+				
+			</div>
                 
+                </div>
 
 </div>
             

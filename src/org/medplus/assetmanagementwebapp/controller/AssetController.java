@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.medplus.assetmanagementcore.exceptions.AssetException;
 import org.medplus.assetmanagementcore.exceptions.AuthenticationException;
@@ -50,7 +51,13 @@ public class AssetController implements HandlerExceptionResolver {
 	EmployeeService employeeService;
 	@Autowired
 	JdbcTemplate template;
-
+	@RequestMapping(value = "/tempurl", method = RequestMethod.GET)
+    public ModelAndView go(){
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("EmpHome");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/addAsset", method = RequestMethod.GET)
 	public ModelAndView getAssetForm() {
 		Asset asset = new Asset();
@@ -132,7 +139,7 @@ public class AssetController implements HandlerExceptionResolver {
 			@RequestParam("file") MultipartFile file) {
 		String rows = "";
 		String message = "";
-		ModelAndView mav = new ModelAndView("EDPHome");
+		ModelAndView mav = new ModelAndView();
 		try {
 			rows = assetService.allocateAsset(employeeID,
 					Long.parseLong(assetID), assignedBy);
@@ -167,6 +174,7 @@ public class AssetController implements HandlerExceptionResolver {
 				message=" Allocation Successful The file uploaded was empty";
 			}
 		}
+		mav.setViewName("EDPHome");
 		mav.addObject("message", message);
 		return mav;
 	}
@@ -232,12 +240,15 @@ public class AssetController implements HandlerExceptionResolver {
 
 	@RequestMapping(value = "/empassets", method = RequestMethod.GET)
 	public ModelAndView EmployeeAssets(
-			@RequestParam("username") String username,
+			//@RequestParam("username") String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("EmployeeAsset");
 		List<Asset> assetlist = null;
 		Employee employee = null;
-
+		String username="";
+	       HttpSession session=request.getSession(false);
+	       if(session!=null)
+	    	   username=(String)session.getAttribute("username");
 		try {
 			assetlist = assetService.getAssetsOfEmployee(username);
 		} catch (AssetException e1) {
@@ -257,13 +268,23 @@ public class AssetController implements HandlerExceptionResolver {
 
 	@RequestMapping(value = "/emprequest", method = RequestMethod.GET)
 	public ModelAndView EmployeeRequest(
-			@RequestParam("username") String username,
+			//@RequestParam("username") String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("EmployeeRequests");
 		List<Request> requestList;
+		String username="";
+	       HttpSession session=request.getSession(false);
+	       if(session!=null)
+	    	   username=(String)session.getAttribute("username");
 		try {
 			requestList = assetService.getAssetRequests(username);
 			mav.addObject("requestList", requestList);
+           
+			List<NewTypeRequest> newAssetRequests = assetService
+					.getNewAssetTypeRequests(username);
+        
+
+			mav.addObject("newAssetRequests", newAssetRequests);
 		} catch (AssetException e) {
 			mav.addObject("message", e.getMessage());
 		}
@@ -280,17 +301,23 @@ public class AssetController implements HandlerExceptionResolver {
 
 	@RequestMapping(value = "assetrequest", method = RequestMethod.POST)
 	public ModelAndView postNewTypeAssetRequest(
-			@RequestParam("userName") String userName,
+			
+			//@RequestParam("userName") String userName,
 			@RequestParam("assetType") String assetType,
 			@RequestParam("assetName") String assetName,
 			HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("EmployeeHome");
+	//	System.out.println("ad");
+		String userName="";
+		ModelAndView mav = new ModelAndView("EmpHome");
 		String msg = 	null;
-
+       HttpSession session=request.getSession(false);
+       if(session!=null)
+    	 userName=(String)session.getAttribute("username");
+		
 		try {
 			msg = assetService.saveNewAssetTypeRequest(userName, assetType,
 					assetName);
-			mav.addObject("message", msg);
+			mav.addObject("message","Request Posted Successfully...");
 		} catch (AuthenticationException | AssetException e) {
 			mav.addObject("message", e.getMessage() + ":" + e);
 		}
@@ -309,10 +336,19 @@ public class AssetController implements HandlerExceptionResolver {
 
 	@RequestMapping(value = "postAssetRequests", method = RequestMethod.POST)
 	public ModelAndView postAssetRequest(
-			@RequestParam("EmployeeId") String requestedBy,
+			/*@RequestParam("EmployeeId") String requestedBy,*/
 			@RequestParam("type") String type, HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("EmployeeHome");
+		
+		ModelAndView mav = new ModelAndView("EmpHome");
+		
+		String requestedBy="";
+	       HttpSession session=request.getSession(false);
+	       if(session!=null)
+	    	   requestedBy=(String)session.getAttribute("username");
+			
+		
+		mav.addObject("message","Request posted successfully");
 		String msg;
 		try {
 			msg = assetService.saveAssetRequest(AssetType.valueOf(type),

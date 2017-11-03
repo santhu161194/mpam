@@ -9,25 +9,24 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
   <script>
   $(function() { // when DOM is ready
-        $(".showhide").click(function(){
-            var toLoad=$(this).attr('id');// when #showhidecomment is clicked
-            
-            $("#content").load(toLoad); // load the sample.jsp page in the #chkcomments element
-        });
-    });
-  
+	    $(".showhide").click(function(){ 
+	    	var toLoad=$(this).attr('id');// when #showhidecomment is clicked
+	    	
+	        $("#content").load(toLoad); // load the sample.jsp page in the #chkcomments element
+	    }); 
+	});
 
   $(function() {
 	     $( "#dateOfBirth").datepicker();
 	     
 	  });
   </script>
-  
-  <title>Welcome Home</title>
+<title>Welcome Home</title>
 <style type="text/css">
 <%@include file="css/common.css"%>
 </style>
@@ -41,16 +40,16 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="home">Asset Management</a>
     </div>
-
-    <ul class="nav navbar-nav">
+    
+     <ul class="nav navbar-nav">
    <% List role = (List)session.getAttribute("role");
    if(role.contains("admin")){
 %>
       <li ><a href="adminhome">Admin</a></li>
       <%} if(role.contains("edp")){%>
-      <li><a  href="EDPHome">EDP</a></li>
+      <li class="active"><a  href="EDPHome">EDP</a></li>
       <%} %>
-      <li class="active"><a  href="employee">Employee</a></li>
+      <li ><a  href="employee">Employee</a></li>
 
       
     </ul>
@@ -59,10 +58,8 @@
       <li><a href="invalidate"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
       
     </ul>
- 
   </div>
- 
- </nav>
+  </nav>
   <div class="wrapper">
 
         <nav id="sidebar">
@@ -70,23 +67,27 @@
                 
           
  <ul class="list-unstyled components">
- 
-  <li><a id="empassets?username=${username}" class="showhide">My Assets</a></li><br>    
-     <li><a id="emprequest?username=${username}" class="showhide">My Requests</a></li><br>    
-   
-   
-    <li><a id="postAssetRequests" href="#" class="showhide">Request Asset</a></li><br>
-    <li><a id="assetrequest" href="#" class="showhide">Request New type of Asset</a></li><br>
-       <li><a id="changePassword" href="#" class="showhide">Change Password</a></li><br>
+  
+  <li><a id="viewAssetsByStatus?status=A" class="showhide">Allocate Assets</a></li><br>	
+   <li><a id="viewAssetsByStatus?status=N" class="showhide">De-Allocate Assets</a></li><br>
+   <li><a id="ViewAssetRequests" href="#" class="showhide">View All Asset Requests</a></li><br>
+   <li><a id="viewAssets?role=edp" class="showhide">View All Assets</a></li><br>	
+   <li><a id="viewEmployees?role=edp" class="showhide">View All Employees</a></li><br>
+    <li><a id="asset-mapping-log" class="showhide">View Asset Log</a></li>	
   </ul>
   </nav>
   </div>
-    <!-- the content is shown here -->
-   
-    <div id="content">
-    <h5>${message}</h5>
-    </div>
- 
+  
+	<!-- the content is shown here -->
+	
+	
+	<div id="content">
+	<h4>${message}<h4>
+	</div>
+  
+
+  
+
 
 
   </j:when>

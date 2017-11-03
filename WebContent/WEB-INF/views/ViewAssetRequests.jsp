@@ -54,11 +54,13 @@ $(document).ready(function(){
 	<div style="overflow:scroll;height:180px;width:100%;overflow:auto">
 	<table border="2">
 		<tr>
-			<th> EmployeeId
+			<th> RequestedBy
+			<th>EmployeeName
+			<th>AssetType
 			
-			<th>assetType
-			
-			<th>requestDate
+			<th>RequestDate
+			<th>Status
+			<th colspan="2">Actions
 			
 			
 		</tr>
@@ -66,10 +68,14 @@ $(document).ready(function(){
 		<j:forEach var="assetReq" items="${assetRequests}">
 			<tr>
 				<td><j:out value="${assetReq.employeeId} "></j:out></td>
+				<td><j:out value="${assetReq.employeeName} "></j:out></td>
 				<td><j:out value="${assetReq.assetType} "></j:out></td>
 				<td><j:out value="${assetReq.requestDate} "></j:out></td>
+				<td><j:out value="${assetReq.status} "></j:out></td>
+			
 				<td><a  class="showhide" id="viewAssetsByType?type=<j:out value="${assetReq.assetType}"></j:out>">Allocate</a></td>
-				<td><a   class="showhide" id="removeAssetRequest?employeeId=<j:out value="${assetReq.employeeId}"></j:out>&type=<j:out value="${assetReq.assetType} "></j:out>">Delete</a></td>
+				<td><a   class="showhide" id="removeAssetRequest?employeeId=<j:out value="${assetReq.employeeId}"></j:out>&type=<j:out value="${assetReq.assetType} "></j:out>">Reject</a></td>
+			
 				</tr>
 				</j:forEach>
 				</tbody>
@@ -87,11 +93,12 @@ $(document).ready(function(){
 		<tr>
 			<th> EmployeeId
 			
-			<th>assetType
+			<th>AssetType
 			
-			<th>assetName
+			<th>AssetName
 			
 			<th>Request Date
+			<th>Actions
 			
 		</tr>
 		  <tbody id="myTable">
@@ -101,7 +108,7 @@ $(document).ready(function(){
 				<td><j:out value="${newAssetReq.assetType} "></j:out></td>
 				<td><j:out value="${newAssetReq.assetName} "></j:out></td>
 				<td><j:out value="${newAssetReq.requestDate} "></j:out></td>
-				
+				<td><a href="remarks">Add Remark</td>
 				</tr>
 				</j:forEach>
 				</tbody>
