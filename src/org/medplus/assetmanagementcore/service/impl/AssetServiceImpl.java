@@ -449,5 +449,29 @@ public class AssetServiceImpl implements AssetService{
 		throw new AssetException("Asset Request Exception",e);
 		}
 	}
+	 @Override
+		public List<AssetMapping> getAllocatedAssets()throws AssetException {                      
+			
+			List<AssetMapping> asset=null;
+			try{
+			
+			asset = dao.getAllocatedAssets();
+			}
+		    catch(DataAccessException e){  
+			throw new AssetException("Asset Exception ",e);
+		    }
+			if(asset!=null&&asset.isEmpty()){
+				throw  new AssetException("Asset Not Found");
+			}
+			return asset;
+		}
+
+
+	@Override
+	public int updateRequestRemark(String remark, String requestedby,
+			String assettype) {
+		int count=dao.updateRequestRemark(remark, requestedby, assettype);
+		return count;
+	}
 }
 

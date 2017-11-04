@@ -69,7 +69,7 @@ $(document).ready(function(){
  --%>                <td id="th"><j:out value="${requestList.assetType} "></j:out></td>
                 <td id="th"><j:out value="${requestList.requestDate} "></j:out></td>
                 <td id="th"><j:out value="${requestList.status} "></j:out></td>
-                
+                <td id="th"><j:out value="${requestList.remark} "></j:out></td>
                 <%-- <td><j:out value="${asss.createdDate} "></j:out></td>
                 <td><j:out value="${asss.createdBy} "></j:out></td>
                 <td><j:out value="${asss.modifiedBy} "></j:out></td>

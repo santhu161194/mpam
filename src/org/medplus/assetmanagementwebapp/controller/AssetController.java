@@ -113,7 +113,22 @@ public class AssetController implements HandlerExceptionResolver {
 		}
 		return mav;
 	}
-
+/*@RequestMapping(value = "/viewAssets", method = RequestMethod.GET)
+public ModelAndView viewAssetsForm() {
+	ModelAndView mav = new ModelAndView("ViewAssets");
+	List<Asset> assetlist;
+	try {
+		
+		assetlist = assetService.getAllAssets();
+		mav.addObject("assets", assetlist);
+		
+		mav.addObject("viewdetails", "All Assets");
+		return mav;
+	} catch (AssetException e) {
+		mav.addObject("message", e.getMessage());
+	}
+	return mav;
+}*/
 	@RequestMapping(value = "/viewAssetsByStatus", method = RequestMethod.GET)
 	public ModelAndView viewAssetForm(@RequestParam("status") String status) {
 		ModelAndView mav = new ModelAndView("ViewAssets");
@@ -190,7 +205,6 @@ public class AssetController implements HandlerExceptionResolver {
 	@RequestMapping(value = "/deallocateAsset", method = RequestMethod.GET)
 	public ModelAndView getDeAllocationForm(
 			@RequestParam("assetID") String assetID) {
-
 		ModelAndView mav = new ModelAndView("DeAllocation");
 		mav.addObject("assetID", assetID);
 		return mav;
@@ -205,8 +219,10 @@ public class AssetController implements HandlerExceptionResolver {
 		String message = null;
 		String response = null;
 		try {
+			System.out.println("Deallocating");
 			response = assetService.deAllocateAsset(Long.parseLong(assetID),
 					deassignedBy);
+			System.out.println(response);
 		} catch (AssetException | EmployeeException e) {
 			message = e.getMessage() + "Deallocation Failed";
 		}
@@ -473,6 +489,62 @@ public class AssetController implements HandlerExceptionResolver {
 
 			mav.addObject("message", message);
 
+		}
+		return mav;
+	}
+	//change status
+	@RequestMapping(value = "/reject-request", method = RequestMethod.GET)
+	public ModelAndView rejectRequest(
+			@RequestParam("reason") String remark,
+			@RequestParam("requestedby") String requestedby,
+			@RequestParam("assettype") String assettype)
+	{
+        int count=assetService.updateRequestRemark(remark, requestedby, assettype);
+		ModelAndView mav = new ModelAndView("EDPHome");
+		return mav;
+	}
+	@RequestMapping(value = "/addAssetType", method = RequestMethod.GET)
+	public ModelAndView getAssetTypeForm() {
+		Asset asset = new Asset();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(asset);
+		mav.setViewName("AddAssetType");
+		return mav;
+	}
+
+	@RequestMapping(value = "/addAssetType", method = RequestMethod.POST)
+	public ModelAndView addAssetType(
+			@RequestParam("AssetTypeName") String AssetTypeName) {
+
+		ModelAndView mav = new ModelAndView("EDPHome");
+
+		String msg = null;
+		String response;
+		try {
+
+			response = assetService.addAssetType(AssetTypeName);
+
+			if (response.equals("Failed to insert")) {
+				msg = "failed to add asset type";
+			} else {
+				msg = " AssetType added Successfully";
+			}
+		} catch (EmployeeException | AssetException | AuthenticationException e) {
+			mav.addObject("message", e.getMessage());
+		}
+		mav.addObject("message", msg);
+		return mav;
+	}
+	@RequestMapping(value = "/getAllocatedAssets", method = RequestMethod.GET)
+	public ModelAndView getAllocatedAssetsForm() {
+		ModelAndView mav = new ModelAndView("GetAllocatedAssets");
+		List<AssetMapping> assetlist;
+		try {
+			assetlist = assetService.getAllocatedAssets();
+			mav.addObject("assets", assetlist);
+			
+		} catch (AssetException e) {
+			mav.addObject("message", e.getMessage());
 		}
 		return mav;
 	}

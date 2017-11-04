@@ -16,6 +16,8 @@ public class Request {
 	private String employeeName;
 	
 	private String status;
+	
+	private String remark;
 
 	public String getEmployeeId() {
 		return employeeId;
@@ -62,6 +64,14 @@ public class Request {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

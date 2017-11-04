@@ -106,5 +106,7 @@ public class Queries {
 	public static String updateAssetRequestStatus="update tbl_asset_request set Status=? where EmployeeId=? and AssetType=? ";
 
 	public static String getAssetType="select AssetType from tbl_asset where AssetId=?";
- 
+	public static String getAllocatedAssets="select am.AssetId,am.AssignedTo,e.FirstName,am.AssignedBy,a.AssetType,a.AssetName,am.HandOverDate from tbl_asset_mapping am INNER JOIN tbl_employee e ON am.AssignedTo = e.EmployeeId INNER JOIN tbl_asset a ON am.AssetId = a.AssetId";
+
+	public static String updateAssetRemark="update tbl_asset_request set Remarks=? where EmployeeId=? and AssetType=?";
 }

@@ -64,4 +64,8 @@ public interface AssetDao {
 	List<String> getAllAssetTypes() throws DataAccessException;
 
 	public List<NewTypeRequest> getNewAssetRequestsByEmployee(String requestedBy);
+
+	List<AssetMapping> getAllocatedAssets() throws DataAccessException;
+	
+	public int updateRequestRemark(final String remark,final String requestedby,String assettype);
 }

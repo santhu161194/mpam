@@ -75,8 +75,7 @@
  <ul class="list-unstyled components">
   
   <li><a id="ViewAssetRequests" class="showhide">Requests</a></li><br>
-   <li><a ="assets">Assets</a></li><br>
-   
+ <li><a class="showhide" id="viewAssets?role=admin">Assets</a></li><br>   
   </ul>
   </nav>
   </div>
@@ -85,7 +84,7 @@
 	
 	
 	<div id="content">
-	
+	 <h5>${message}</h5>
 		</div>	
 			
 </body>

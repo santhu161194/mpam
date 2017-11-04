@@ -276,7 +276,7 @@ public class AssetDaoImpl implements AssetDao {
     	
     }
     private String getTypeOfAsset(long assetId){
-    	System.out.println("In get Type of Asset");
+    	
     	String sql = Queries.getAssetType;
 		Object args[] = { assetId };
 		String r = template.queryForObject(sql, args, (String.class));
@@ -298,6 +298,8 @@ public class AssetDaoImpl implements AssetDao {
 			resultCount = template.update(sql, args);
 		/*if(true)
 			throw new RuntimeException("transactional error");*/
+		
+		//int requestResult=updateRequestStatus(assignedTo,"Deallocated",assetId);
 		return resultCount;
 	}
 
@@ -562,5 +564,50 @@ public class AssetDaoImpl implements AssetDao {
 				});
 	}
 
+	@Override
+	public List<AssetMapping> getAllocatedAssets()
+			throws DataAccessException {
 
+		
+
+		return template.query(Queries.getAllocatedAssets,
+				new RowMapper<AssetMapping>() {
+			
+					public AssetMapping mapRow(ResultSet rs, int row)
+							throws SQLException {
+						
+						AssetMapping assetMapping = new AssetMapping();
+						assetMapping.setAssetId(rs.getLong(1));
+						assetMapping.setEmployeeId(rs.getString(2));
+						assetMapping.setEmployeeName(rs.getString(3));
+						assetMapping.setAssignedBy(rs.getString(4));
+						assetMapping.setAssetType(rs.getString(5));
+
+						assetMapping.setAssetName(rs.getString(6));
+						assetMapping.setAssignedDate(rs.getDate(7));
+					
+						return assetMapping;
+					}
+				});
+
+	}
+
+	@Override
+	public int updateRequestRemark(final String remark, final String requestedby, final String assettype) {
+		
+		
+		int resultCount = 0;
+
+			resultCount = template.update(Queries.updateAssetRemark,
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement pst)
+								throws SQLException {
+							pst.setString(1,remark);
+							pst.setString(2,requestedby);
+							pst.setString(3, assettype);
+						}
+					});
+			
+		return resultCount;
+	}
 }

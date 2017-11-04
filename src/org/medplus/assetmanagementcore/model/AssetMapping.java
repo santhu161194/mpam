@@ -9,14 +9,17 @@ public class AssetMapping {
 
 	private int roleId;
 
-	private int assetId;
+	private long assetId;
 
 	private String assignedBy;
 
 	private Date assignedDate;
 
 	private Date returnDate;
-
+private String employeeName;
+	
+	private String assetName;
+	 private String assetType;
 	private AssetAllocation status;
 
 	
@@ -27,6 +30,36 @@ public class AssetMapping {
 
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
+	}
+
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+
+	public String getAssetName() {
+		return assetName;
+	}
+
+
+	public void setAssetName(String assetName) {
+		this.assetName = assetName;
+	}
+
+
+	public String getAssetType() {
+		return assetType;
+	}
+
+
+	public void setAssetType(String assetType) {
+		this.assetType = assetType;
 	}
 
 
@@ -80,12 +113,12 @@ public class AssetMapping {
 	}
 
 
-	public int getAssetId() {
+	public long getAssetId() {
 		return assetId;
 	}
 
 
-	public void setAssetId(int assetId) {
+	public void setAssetId(long assetId) {
 		this.assetId = assetId;
 	}
 

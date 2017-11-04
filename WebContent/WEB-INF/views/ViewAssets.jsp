@@ -51,6 +51,7 @@ $(document).ready(function(){
 </head>
 <body>
 	
+<h4 align="right"><a class="showhide" id="addAsset">add Asset </a><tr></tr><a class="showhide" id="addAssetType">add Asset Type</a><tr></tr><a class="showhide" id="getAllocatedAssets">Deallocate asset</a></h4>	
 
 
 	<div id="content">
@@ -74,6 +75,7 @@ $(document).ready(function(){
 		   <th>
 		   Employee-Name
 				</j:if>
+				<th colspan="2">Actions
 		
 			
 		</tr>
@@ -86,18 +88,18 @@ $(document).ready(function(){
 				<td><j:out value="${asset.assetType} "></j:out></td>
 				<td><j:out value="${asset.cost} "></j:out></td>
 				<td><j:out value="${asset.status} "></j:out></td>
-								
-				<j:if test="${viewdetails eq 'Available Assets'}">
-				<td><a class="showhide" id="allocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">Allocate Asset</a></td>
-				</j:if>
-				<j:if test="${viewdetails eq 'Allocated Assets'}">
-				<td><a class="showhide" id="deallocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">DeAllocate Asset</a></td>
-				</j:if>
-				<j:if test="${viewdetails eq 'All Assets'}">
 				<j:if test="${requestrole eq 'admin'}">
 				<td><a class="showhide" id="UpdateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">Update</a>
+				</j:if>				
+				<j:if test="${asset.status eq 'Available'}">
+				<td><a class="showhide" id="allocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">Allocate Asset</a></td>
 				</j:if>
-				</j:if>
+				<%-- <j:if test="${viewdetails eq 'Allocated Assets'}">
+				<td><a class="showhide" id="deallocateAsset?assetID=<j:out value="${asset.assetId}"></j:out>">DeAllocate Asset</a></td>
+				</j:if> --%>
+				
+				
+				
 				</tr>
 				</j:forEach>
 				</tbody>
