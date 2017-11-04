@@ -54,7 +54,7 @@ public class Queries {
 	
 	public static String getAllAsset = "select  AssetId,SerialNumber,AssetName,AssetType,Cost,Status,CreatedBy,DateCreated,ModifiedBy,DateModified from AssetManagement.tbl_asset";
 	
-	public static String getAssetRequestsByEmployee = "select EmployeeId,AssetType,RequestDate,Status from AssetManagement.tbl_asset_request where EmployeeId=?";
+	public static String getAssetRequestsByEmployee = "select EmployeeId,AssetType,RequestDate,Status,Remarks from AssetManagement.tbl_asset_request where EmployeeId=?";
 	
 	public static String postAssetRequest = "insert into AssetManagement.tbl_asset_request values(?,?,?,?,?)";
 	
@@ -94,14 +94,14 @@ public class Queries {
 
 	public static String updateAsset="update tbl_asset set AssetName=?,SerialNumber=?,Cost=?,DateModified=?,ModifiedBy=? where AssetId=?";
 
-	public static String getAllNewAssetRequests = "select EmployeeId,AssetType,AssetName,RequestDate from AssetManagement.tbl_asset_request_unavailable";
+	public static String getAllNewAssetRequests = "select EmployeeId,AssetType,AssetName,RequestDate,Remarks from AssetManagement.tbl_asset_request_unavailable";
 
 	//Assettype
 	public static String addAssetType = "insert into AssetManagement.tbl_asset_type(AssetTypeName) values(?)";
 
 	public static String getAllAssetTypes = "select  AssetTypeName from AssetManagement. tbl_asset_type";
 
-	public static String getNewAssetRequestsByEmployee="select EmployeeId,AssetType,AssetName,RequestDate from AssetManagement.tbl_asset_request_unavailable where EmployeeId=?";
+	public static String getNewAssetRequestsByEmployee="select EmployeeId,AssetType,AssetName,RequestDate,Remarks from AssetManagement.tbl_asset_request_unavailable where EmployeeId=?";
 
 	public static String updateAssetRequestStatus="update tbl_asset_request set Status=? where EmployeeId=? and AssetType=? ";
 
@@ -109,4 +109,6 @@ public class Queries {
 	public static String getAllocatedAssets="select am.AssetId,am.AssignedTo,e.FirstName,am.AssignedBy,a.AssetType,a.AssetName,am.HandOverDate from tbl_asset_mapping am INNER JOIN tbl_employee e ON am.AssignedTo = e.EmployeeId INNER JOIN tbl_asset a ON am.AssetId = a.AssetId";
 
 	public static String updateAssetRemark="update tbl_asset_request set Remarks=? where EmployeeId=? and AssetType=?";
+	
+	public static String updateNewRemark="update tbl_asset_request_unavailable set Remarks=? where EmployeeId=? and AssetType=?";
 }

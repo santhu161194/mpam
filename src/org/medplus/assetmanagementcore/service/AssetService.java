@@ -58,6 +58,9 @@ public interface AssetService {
 	List<AssetMapping> getAllocatedAssets() throws AssetException;
 	public int updateRequestRemark(final String remark,final String requestedby,String assettype);
 
+	public int updateNewRemark(String reason, String requestedby,
+			String assettype);
+
 	
 }
 

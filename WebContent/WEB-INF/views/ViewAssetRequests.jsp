@@ -44,6 +44,16 @@ $(document).ready(function(){
 	    }); 
 	});
   </script>
+  <script>
+function fu(u,t) {
+	$("#id").val(t);
+	alert(t+u);
+	$("#id1").val(u);
+	$("#empId").val(u);
+	$("#type").val(t);
+	
+}
+</script>
 </head>
 <body>
 <div id="content" style="width:100%">
@@ -77,7 +87,7 @@ $(document).ready(function(){
 			
 				<td><a  class="showhide" id="viewAssetsByType?type=<j:out value="${assetReq.assetType}"></j:out>">Allocate</a></td>
 <%-- 				<td><a   class="showhide" id="removeAssetRequest?employeeId=<j:out value="${assetReq.employeeId}"></j:out>&type=<j:out value="${assetReq.assetType} "></j:out>">Reject</a></td>
- --%>		<td> <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Reject</button></td>
+ --%>		<td> <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${assetReq.employeeId}','${assetReq.assetType}')">Reject </a></td>
  
 				</tr>
 				</j:forEach>
@@ -111,7 +121,7 @@ $(document).ready(function(){
 				<td><j:out value="${newAssetReq.assetType} "></j:out></td>
 				<td><j:out value="${newAssetReq.assetName} "></j:out></td>
 				<td><j:out value="${newAssetReq.requestDate} "></j:out></td>
-				<td><a href="remarks">Add Remark</td>
+				<td> <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${newAssetReq.employeeId}','${newAssetReq.assetType}')">Remark </a></td>
 				</tr>
 				</j:forEach>
 				</tbody>
@@ -135,6 +145,38 @@ $(document).ready(function(){
         </div>
         <div class="modal-body">
         <p>"Enter Reason for request rejection.. "</p>
+        <input id="id1" name="empId"/>
+        <input id="id" name="type"/>
+         <textarea rows="4" cols="50" name="reason">
+          
+          </textarea>
+        </div>
+        <div class="modal-footer">
+           <button type="submit" value="Submit" class="btn btn-default" >Submit</button>
+        </div>
+      </div>
+      
+    </div>
+    </form>
+  </div>
+  
+  
+  
+       <!-- Modal 2-->
+  <div class="modal fade" id="myModal2" role="dialog">
+  <form id="assetform" name="assetform" method="get" action="reject-remark">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reason</h4>
+        </div>
+        <div class="modal-body">
+        <p>"Enter Reason for request rejection.. "</p>
+        <input id="empId" name="empId"/>
+        <input id="type" name="type"/>
          <textarea rows="4" cols="50" name="reason">
           
           </textarea>

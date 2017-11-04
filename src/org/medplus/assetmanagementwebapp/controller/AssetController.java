@@ -495,14 +495,27 @@ public ModelAndView viewAssetsForm() {
 	//change status
 	@RequestMapping(value = "/reject-request", method = RequestMethod.GET)
 	public ModelAndView rejectRequest(
-			@RequestParam("reason") String remark,
-			@RequestParam("requestedby") String requestedby,
-			@RequestParam("assettype") String assettype)
+			@RequestParam("reason") String reason,
+			@RequestParam("empId") String requestedby,
+			@RequestParam("type") String assettype)
 	{
-        int count=assetService.updateRequestRemark(remark, requestedby, assettype);
+        int count=assetService.updateRequestRemark(reason, requestedby, assettype);
 		ModelAndView mav = new ModelAndView("EDPHome");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/reject-remark", method = RequestMethod.GET)
+	public ModelAndView rejectRemark(
+			@RequestParam("reason") String reason,
+			@RequestParam("empId") String requestedby,
+			@RequestParam("type") String assettype)
+	{
+		System.out.println("aaa");
+        int count=assetService.updateNewRemark(reason, requestedby, assettype);
+		ModelAndView mav = new ModelAndView("EDPHome");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/addAssetType", method = RequestMethod.GET)
 	public ModelAndView getAssetTypeForm() {
 		Asset asset = new Asset();

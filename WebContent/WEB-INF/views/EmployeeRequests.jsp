@@ -106,7 +106,7 @@ $(document).ready(function(){
 				<td><j:out value="${newAssetReq.assetType} "></j:out></td>
 				<td><j:out value="${newAssetReq.assetName} "></j:out></td>
 				<td><j:out value="${newAssetReq.requestDate} "></j:out></td>
-				<td></td>
+				<td><j:out value="${newAssetReq.remark} "></j:out></td>
 				
 				</tr>
 				</j:forEach>

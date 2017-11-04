@@ -229,6 +229,7 @@ public class AssetDaoImpl implements AssetDao {
 						request.setRequestDate(new java.util.Date(rs.getDate(3)
 								.getTime()));
                         request.setStatus(rs.getString(4));
+                        request.setRemark(rs.getString(5));
 						return request;
 
 					}
@@ -470,7 +471,7 @@ public class AssetDaoImpl implements AssetDao {
 						e.setAssetName(rs.getString(3));
 						e.setRequestDate(new java.util.Date(rs.getDate(4)
 								.getTime()));
-
+						 e.setRemark(rs.getString(5));
 						return e;
 
 					}
@@ -609,5 +610,23 @@ public class AssetDaoImpl implements AssetDao {
 					});
 			
 		return resultCount;
+	}
+
+	@Override
+	public int updateNewRemark(final String reason, final String requestedby,
+			final String assettype) {
+		int resultCount = 0;
+
+		resultCount = template.update(Queries.updateNewRemark,
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement pst)
+							throws SQLException {
+						pst.setString(1,reason);
+						pst.setString(2,requestedby);
+						pst.setString(3, assettype);
+					}
+				});
+		
+	return resultCount;
 	}
 }

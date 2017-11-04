@@ -473,5 +473,15 @@ public class AssetServiceImpl implements AssetService{
 		int count=dao.updateRequestRemark(remark, requestedby, assettype);
 		return count;
 	}
+
+
+	@Override
+	public int updateNewRemark(String reason, String requestedby,
+			String assettype) {
+		int count=dao.updateNewRemark(reason, requestedby, assettype);
+		return count;
+	}
+	
+	
 }
 

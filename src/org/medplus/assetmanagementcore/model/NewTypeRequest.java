@@ -11,6 +11,8 @@ public class NewTypeRequest {
 	private String assetName;
 	
 	private Date requestDate;
+	
+	private String remark;
 
 	public String getEmployeeId() {
 		return employeeId;
@@ -49,6 +51,14 @@ public class NewTypeRequest {
 		return "NewTypeRequest [employeeId=" + employeeId + ", assetType="
 				+ assetType + ", assetName=" + assetName + ", requestDate="
 				+ requestDate + "]";
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

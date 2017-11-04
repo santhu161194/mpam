@@ -68,4 +68,7 @@ public interface AssetDao {
 	List<AssetMapping> getAllocatedAssets() throws DataAccessException;
 	
 	public int updateRequestRemark(final String remark,final String requestedby,String assettype);
+
+	public int updateNewRemark(String reason, String requestedby,
+			String assettype);
 }
