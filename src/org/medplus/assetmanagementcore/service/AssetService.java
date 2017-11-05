@@ -16,7 +16,7 @@ public interface AssetService {
 
 	public String updateAssetStatus(long assetId,AssetStatus status,String ModifiedBy) throws AuthenticationException, AssetException, EmployeeException;
 
-	public String saveAssetRequest(AssetType assetType,String requestedBy) throws AuthenticationException, AssetException ;
+	public String saveAssetRequest(String type,String requestedBy, String remark) throws AuthenticationException, AssetException ;
 
 	public Asset getAsset(long assetId) throws AssetException;
 	
@@ -28,7 +28,7 @@ public interface AssetService {
 	
 	public List<Asset> getAssetsOfEmployee(String empId) throws AssetException ;
 	
-	public String saveNewAssetTypeRequest(String requestedBy,String assetType,String assetName) throws AuthenticationException, AssetException ;
+	public String saveNewAssetTypeRequest(String requestedBy,String assetType,String assetName, String remarks) throws AuthenticationException, AssetException ;
 	
 	public List<Request> getAllAssetRequests() throws AssetException ;
 	
@@ -56,7 +56,7 @@ public interface AssetService {
 	public List<NewTypeRequest> getNewAssetTypeRequests(String username) throws AssetException;
 
 	List<AssetMapping> getAllocatedAssets() throws AssetException;
-	public int updateRequestRemark(final String remark,final String requestedby,String assettype);
+	public int updateRequestRemark(final String remark,final String requestedby,String assettype,String status);
 
 	public int updateNewRemark(String reason, String requestedby,
 			String assettype);

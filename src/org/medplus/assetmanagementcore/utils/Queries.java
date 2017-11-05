@@ -41,7 +41,9 @@ public class Queries {
 	public static String updateEmployeeLog = "update AssetManagement.tbl_employee_log set FirstName=?,LastName=?,Gender=?,MobileNumber=?,DateOfBirth=?,DateOfJoining=?,Address=?,ModifiedBy=?,DateModified=? where EmployeeId=?";
 
 	public static String employeeModificationLog = "update AssetManagement.tbl_employee_log set CreatedBy=?,DateModified=? where EmployeeId=?";
-
+	
+	public static String getDesignation = "select Designation from AssetManagement.tbl_employee where EmployeeId=?";
+	
 	// Asset
 	//public static String getAllAssetRequests = "select EmployeeId,AssetType,RequestDate from AssetManagement.tbl_asset_request";
 	public static String getAllAssetRequests="select r.EmployeeId,e.FirstName,r.AssetType,r.RequestDate,r.Status from tbl_asset_request r inner join tbl_employee e on r.EmployeeId=e.EmployeeId";
@@ -68,7 +70,7 @@ public class Queries {
 	
 	public static String deallocateAsset = "delete from AssetManagement.tbl_asset_mapping where AssetId=?";
 	
-	public static String postNewAssetTypeRequest = "insert into AssetManagement.tbl_asset_request_unavailable values(?,?,?,?)";
+	public static String postNewAssetTypeRequest = "insert into AssetManagement.tbl_asset_request_unavailable values(?,?,?,?,?)";
 	
 	public static String getNewAssetTypeRequest = "select EmployeeId,AssetType,AssetName,RequestDate from AssetManagement.tbl_asset_request_unavailable ";
 	
@@ -108,7 +110,7 @@ public class Queries {
 	public static String getAssetType="select AssetType from tbl_asset where AssetId=?";
 	public static String getAllocatedAssets="select am.AssetId,am.AssignedTo,e.FirstName,am.AssignedBy,a.AssetType,a.AssetName,am.HandOverDate from tbl_asset_mapping am INNER JOIN tbl_employee e ON am.AssignedTo = e.EmployeeId INNER JOIN tbl_asset a ON am.AssetId = a.AssetId";
 
-	public static String updateAssetRemark="update tbl_asset_request set Remarks=? where EmployeeId=? and AssetType=?";
+	public static String updateAssetRemark="update tbl_asset_request set Remarks=?,Status=? where EmployeeId=? and AssetType=?";
 	
 	public static String updateNewRemark="update tbl_asset_request_unavailable set Remarks=? where EmployeeId=? and AssetType=?";
 }

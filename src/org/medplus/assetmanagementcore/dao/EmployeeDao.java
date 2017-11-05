@@ -141,4 +141,6 @@ public interface EmployeeDao {
 	public int resetPassword(String empId, String modifiedBy, String newPassword)
 			throws DataAccessException, DataIntegrityViolationException;
 
+
+	public String getDesignation(String empId);
 }

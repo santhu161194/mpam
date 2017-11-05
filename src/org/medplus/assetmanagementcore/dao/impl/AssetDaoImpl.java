@@ -193,8 +193,8 @@ public class AssetDaoImpl implements AssetDao {
 	}
 
 	@Override
-	public int saveAssetRequest(final AssetType assetType,
-			final String requestedBy) throws DataAccessException,
+	public int saveAssetRequest(final String assetType,
+			final String requestedBy,final String remark) throws DataAccessException,
 			DataIntegrityViolationException {
 
 		int resultCount = template.update(Queries.postAssetRequest,
@@ -206,7 +206,7 @@ public class AssetDaoImpl implements AssetDao {
 						pst.setString(2, assetType.toString());
 						pst.setDate(3, new java.sql.Date(new Date().getTime()));
 						pst.setString(4, "Requested");
-						pst.setString(5,"-");
+						pst.setString(5,remark);
 						
 
 					}
@@ -412,7 +412,7 @@ public class AssetDaoImpl implements AssetDao {
 
 	@Override
 	public int saveNewAssetTypeRequest(final String requestedBy,
-			final String assetType, final String assetName)
+			final String assetType, final String assetName,final String remarks)
 			throws DataAccessException, DataIntegrityViolationException {
 		int resultCount = 0;
 		resultCount = template.update(Queries.postNewAssetTypeRequest,
@@ -423,6 +423,7 @@ public class AssetDaoImpl implements AssetDao {
 						pst.setString(2, assetType);
 						pst.setString(3, assetName);
 						pst.setDate(4, new java.sql.Date(new Date().getTime()));
+						pst.setString(5,remarks);
 
 					}
 				});
@@ -519,7 +520,7 @@ public class AssetDaoImpl implements AssetDao {
 	
 	@Override
 	public int addAssetType(final String assetType) {
-		int resultCount = template.update("",/*Queries.addAssetType,*/
+		int resultCount = template.update(Queries.addAssetType,
 				new PreparedStatementSetter() {
 					public void setValues(PreparedStatement pst)
 							throws SQLException {
@@ -594,21 +595,23 @@ public class AssetDaoImpl implements AssetDao {
 	}
 
 	@Override
-	public int updateRequestRemark(final String remark, final String requestedby, final String assettype) {
+	public int updateRequestRemark(final String remark, final String requestedby, final String assettype,final String status) {
 		
 		
 		int resultCount = 0;
-
+		
 			resultCount = template.update(Queries.updateAssetRemark,
 					new PreparedStatementSetter() {
 						public void setValues(PreparedStatement pst)
 								throws SQLException {
 							pst.setString(1,remark);
-							pst.setString(2,requestedby);
-							pst.setString(3, assettype);
+							pst.setString(2, status);
+							pst.setString(3,requestedby);
+							pst.setString(4, assettype);
 						}
 					});
 			
+			System.out.println("VAIO");
 		return resultCount;
 	}
 

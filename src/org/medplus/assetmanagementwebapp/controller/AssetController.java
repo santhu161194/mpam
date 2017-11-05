@@ -113,22 +113,7 @@ public class AssetController implements HandlerExceptionResolver {
 		}
 		return mav;
 	}
-/*@RequestMapping(value = "/viewAssets", method = RequestMethod.GET)
-public ModelAndView viewAssetsForm() {
-	ModelAndView mav = new ModelAndView("ViewAssets");
-	List<Asset> assetlist;
-	try {
-		
-		assetlist = assetService.getAllAssets();
-		mav.addObject("assets", assetlist);
-		
-		mav.addObject("viewdetails", "All Assets");
-		return mav;
-	} catch (AssetException e) {
-		mav.addObject("message", e.getMessage());
-	}
-	return mav;
-}*/
+
 	@RequestMapping(value = "/viewAssetsByStatus", method = RequestMethod.GET)
 	public ModelAndView viewAssetForm(@RequestParam("status") String status) {
 		ModelAndView mav = new ModelAndView("ViewAssets");
@@ -189,7 +174,7 @@ public ModelAndView viewAssetsForm() {
 				message=" Allocation Successful The file uploaded was empty";
 			}
 		}
-		mav.setViewName("EDPHome");
+		mav.setViewName("Home");
 		mav.addObject("message", message);
 		return mav;
 	}
@@ -215,7 +200,7 @@ public ModelAndView viewAssetsForm() {
 			@RequestParam("assetID") String assetID,
 			@RequestParam("deassignedBy") String deassignedBy)
 			throws NumberFormatException, AuthenticationException {
-		ModelAndView mav = new ModelAndView("EDPHome");
+		ModelAndView mav = new ModelAndView("Home");
 		String message = null;
 		String response = null;
 		try {
@@ -240,11 +225,14 @@ public ModelAndView viewAssetsForm() {
 		String msg = null;
 		ModelAndView mav = new ModelAndView("ViewAssetRequests");
 		List<Request> getAllAssetRequests;
+		
 		try {
 			List<NewTypeRequest> newAssetRequests = assetService
 					.getNewAssetTypeRequests();
+		
 			mav.addObject("newAssetRequests", newAssetRequests);
 			getAllAssetRequests = assetService.getAllAssetRequests();
+			System.out.println("VAIO");
 			mav.addObject("assetRequests", getAllAssetRequests);
 
 		} catch (AssetException e) {
@@ -284,7 +272,6 @@ public ModelAndView viewAssetsForm() {
 
 	@RequestMapping(value = "/emprequest", method = RequestMethod.GET)
 	public ModelAndView EmployeeRequest(
-			//@RequestParam("username") String username,
 			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("EmployeeRequests");
 		List<Request> requestList;
@@ -318,11 +305,10 @@ public ModelAndView viewAssetsForm() {
 	@RequestMapping(value = "assetrequest", method = RequestMethod.POST)
 	public ModelAndView postNewTypeAssetRequest(
 			
-			//@RequestParam("userName") String userName,
 			@RequestParam("assetType") String assetType,
 			@RequestParam("assetName") String assetName,
+			@RequestParam("remarks") String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
-	//	System.out.println("ad");
 		String userName="";
 		ModelAndView mav = new ModelAndView("EmpHome");
 		String msg = 	null;
@@ -332,7 +318,7 @@ public ModelAndView viewAssetsForm() {
 		
 		try {
 			msg = assetService.saveNewAssetTypeRequest(userName, assetType,
-					assetName);
+					assetName,remarks);
 			mav.addObject("message","Request Posted Successfully...");
 		} catch (AuthenticationException | AssetException e) {
 			mav.addObject("message", e.getMessage() + ":" + e);
@@ -345,34 +331,37 @@ public ModelAndView viewAssetsForm() {
 	@RequestMapping(value = "postAssetRequests", method = RequestMethod.GET)
 	public ModelAndView postAssetRequestForm(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("Request1");
+		ModelAndView mav = new ModelAndView("Request");
+		List<String> types;
+		try {
+			types = assetService.getAllAssetTypes();
+			mav.addObject("types",types);
+		} catch (AssetException e) {
+			mav.addObject("message", "No Assets to view");
+		}
 		return mav;
 
 	}
 
 	@RequestMapping(value = "postAssetRequests", method = RequestMethod.POST)
 	public ModelAndView postAssetRequest(
-			/*@RequestParam("EmployeeId") String requestedBy,*/
+			@RequestParam("remark") String remark,
 			@RequestParam("type") String type, HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		ModelAndView mav = new ModelAndView("EmpHome");
-		
+		ModelAndView mav = new ModelAndView("Request");
 		String requestedBy="";
 	       HttpSession session=request.getSession(false);
 	       if(session!=null)
 	    	   requestedBy=(String)session.getAttribute("username");
-			
-		
-		mav.addObject("message","Request posted successfully");
-		String msg;
+	    String msg;
 		try {
-			msg = assetService.saveAssetRequest(AssetType.valueOf(type),
-					requestedBy);
+			msg = assetService.saveAssetRequest(type,
+					requestedBy,remark);
 			mav.addObject("message", msg);
+			mav.addObject("message","Request posted successfully");
 		} catch (AssetException | AuthenticationException e) {
 			mav.addObject("message", e.getMessage() + ":" + e);
-
 		}
 		return mav;
 
@@ -476,7 +465,7 @@ public ModelAndView viewAssetsForm() {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object obj, Exception exc) {
-		ModelAndView mav = new ModelAndView("EDPHome");
+		ModelAndView mav = new ModelAndView("Home");
 		if (exc instanceof MaxUploadSizeExceededException) {
 			response.setContentType("text/html");
 			response.setStatus(HttpStatus.REQUEST_ENTITY_TOO_LARGE.value());
@@ -497,10 +486,12 @@ public ModelAndView viewAssetsForm() {
 	public ModelAndView rejectRequest(
 			@RequestParam("reason") String reason,
 			@RequestParam("empId") String requestedby,
-			@RequestParam("type") String assettype)
+			@RequestParam("type") String assettype
+			)
 	{
-        int count=assetService.updateRequestRemark(reason, requestedby, assettype);
-		ModelAndView mav = new ModelAndView("EDPHome");
+		
+        int count=assetService.updateRequestRemark(reason, requestedby, assettype,"Rejected");
+		ModelAndView mav = new ModelAndView("Home");
 		return mav;
 	}
 	
@@ -510,9 +501,8 @@ public ModelAndView viewAssetsForm() {
 			@RequestParam("empId") String requestedby,
 			@RequestParam("type") String assettype)
 	{
-		System.out.println("aaa");
         int count=assetService.updateNewRemark(reason, requestedby, assettype);
-		ModelAndView mav = new ModelAndView("EDPHome");
+		ModelAndView mav = new ModelAndView("Home");
 		return mav;
 	}
 	
@@ -529,7 +519,7 @@ public ModelAndView viewAssetsForm() {
 	public ModelAndView addAssetType(
 			@RequestParam("AssetTypeName") String AssetTypeName) {
 
-		ModelAndView mav = new ModelAndView("EDPHome");
+		ModelAndView mav = new ModelAndView("Home");
 
 		String msg = null;
 		String response;

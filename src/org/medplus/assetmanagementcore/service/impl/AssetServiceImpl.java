@@ -158,7 +158,7 @@ public class AssetServiceImpl implements AssetService{
 
 	
 	@Override
-	public String saveAssetRequest(AssetType assetType, String requestedBy)throws AuthenticationException, AssetException {
+	public String saveAssetRequest(String assetType, String requestedBy,String remark)throws AuthenticationException, AssetException {
 	
 		if(!employeeService.isUserExisting(requestedBy)){
 			throw new AuthenticationException("Authentication Exception ..");
@@ -166,7 +166,7 @@ public class AssetServiceImpl implements AssetService{
 	
 		int postResult;
 			try{
-				postResult = dao.saveAssetRequest(assetType, requestedBy);
+				postResult = dao.saveAssetRequest(assetType, requestedBy,remark);
 				if(postResult>0)
 				{
 					return "success";
@@ -285,14 +285,14 @@ public class AssetServiceImpl implements AssetService{
 	
 	
    @Override
-	public String saveNewAssetTypeRequest( String requestedBy,String assetType,String assetName)throws AuthenticationException, AssetException {
+	public String saveNewAssetTypeRequest( String requestedBy,String assetType,String assetName,String remarks)throws AuthenticationException, AssetException {
 		if(!employeeService.isUserExisting(requestedBy)){
 			throw new AuthenticationException("Authentication Exception ..");
 		}
 	
 		int postResult;
 	        try{
-				postResult = dao.saveNewAssetTypeRequest(requestedBy,assetType, assetName);
+				postResult = dao.saveNewAssetTypeRequest(requestedBy,assetType, assetName,remarks);
 				if(postResult>0)
 				{
 					return "success";
@@ -469,8 +469,8 @@ public class AssetServiceImpl implements AssetService{
 
 	@Override
 	public int updateRequestRemark(String remark, String requestedby,
-			String assettype) {
-		int count=dao.updateRequestRemark(remark, requestedby, assettype);
+			String assettype,String status) {
+		int count=dao.updateRequestRemark(remark, requestedby, assettype,status);
 		return count;
 	}
 

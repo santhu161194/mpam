@@ -45,59 +45,39 @@ public class LoginController {
 			HttpServletResponse response,
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws IOException {
-		ModelAndView mav = new ModelAndView();
-	
-		String login = null;
-		
-		
+		ModelAndView mav = new ModelAndView("Home");
+		boolean login = false;
 				try {
 					
-					login = employeeService
-							.authenticateEmployee(username, password);
+					login = employeeService.authenticateEmployee(username, password);
 					
 				} catch (DataAccessException | EmployeeException
 						| AuthenticationException e) {
-					mav.addObject("message", "INVALID USER ID");
+					mav.addObject("message", e.getMessage());
 					mav.setViewName("Login");
-					return mav;
 				}
-			
-			
-		if (!login.equals("LOGIN SUCCESSFUL")) {
+		if (!login) {
 			mav.setViewName("Login");
-			
 			mav.addObject("message", login);
 			return mav;
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("username", username);
 			mav.addObject("username", username);
-		
-			List<String> roles = null;
-			roles = employeeService.checkRoles(username);
-			session.setAttribute("role", roles);
-			if (roles.contains("admin")) {
-				mav.setViewName("AdminHome");
-			} /*else if (roles.contains("edp")) {
-				mav.setViewName("EDPHome");
-
-			}*/ else {
-//				mav.setViewName("EmployeeHome");
-				 try {
-						List<String> types =assetService.getAllAssetTypes();
-						System.out.println("a"+types);
-						mav.addObject("types",types);
-					} catch (AssetException e) {
-						e.printStackTrace();
-					}
-				mav.setViewName("EmpHome");
-
+			String role=employeeService.getDesignation(username);
+			session.setAttribute("role", role);
+			if (role!=null&&role.equals("admin")) {
+				mav.addObject("isAdmin", "true");
 			}
-		}
-
+			else {
+				mav.addObject("isAdmin", "false");
+				 }
+		
 		return mav;
 	}
+	}
 
+	
 	@RequestMapping(value = "/invalidate", method = RequestMethod.GET)
 	public String invalidate(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -130,10 +110,10 @@ public class LoginController {
 				msg = employeeService.changePassword(username, oldpassword,
 						newpassword, username, new Date());
 			} catch (AuthenticationException e) {
-				msg += e.getMessage();
+				msg= e.getMessage();
 			}
 		} catch (EmployeeException e) {
-			msg += e.getMessage();
+			msg= e.getMessage();
 		}
 		if(msg.equals("SUCCESS"))
 		{
@@ -144,7 +124,7 @@ public class LoginController {
 		else
 		{
 			mav.addObject("message", msg);
-			mav.setViewName("EmployeeHome");
+			mav.setViewName("EmpHome");
 			return mav;	
 		}
 		

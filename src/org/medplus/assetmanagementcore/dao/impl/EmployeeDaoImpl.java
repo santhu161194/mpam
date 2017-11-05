@@ -400,4 +400,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return employeeID;
 	}
 
+	@Override
+	public String getDesignation(String empId) {
+		String designation=null;
+		Object[] inputs = { empId };
+		designation = template.queryForObject(Queries.getDesignation,
+				inputs, String.class);
+		System.out.println(designation);
+		return designation;
+	}
+
 }

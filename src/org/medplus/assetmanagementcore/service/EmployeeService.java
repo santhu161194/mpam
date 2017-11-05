@@ -38,11 +38,13 @@ public interface EmployeeService
 
 	public List<Map<Integer, String>> getRole(String employeeId) throws EmployeeException, AuthenticationException;
 
-	public String authenticateEmployee(String employeeId, String password) throws EmployeeException, DataAccessException, AuthenticationException;
+	public boolean authenticateEmployee(String employeeId, String password) throws EmployeeException, DataAccessException, AuthenticationException;
 
 	public List<String> checkRoles(String empID);
 	
 	public boolean isUserExisting(String empId) throws AuthenticationException;
+	
+	public String getDesignation(String empId);
 	
 }
 

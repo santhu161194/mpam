@@ -34,11 +34,11 @@ public interface AssetDao {
 
 	public List<Request> getAllAssetRequests() throws DataAccessException;
 
-	public int saveAssetRequest(AssetType assetType, String empId)
+	public int saveAssetRequest(String assetType, String empId,String remark)
 			throws DataIntegrityViolationException, DataAccessException;
 
 	public int saveNewAssetTypeRequest(String requestedBy, String assetType,
-			String assetName) throws DataAccessException,
+			String assetName, String remarks) throws DataAccessException,
 			DataIntegrityViolationException;
 
 	public List<Request> getAssetRequestsByEmployee(String empId)
@@ -67,7 +67,7 @@ public interface AssetDao {
 
 	List<AssetMapping> getAllocatedAssets() throws DataAccessException;
 	
-	public int updateRequestRemark(final String remark,final String requestedby,String assettype);
+	public int updateRequestRemark(final String remark,final String requestedby,String assettype,String status);
 
 	public int updateNewRemark(String reason, String requestedby,
 			String assettype);
