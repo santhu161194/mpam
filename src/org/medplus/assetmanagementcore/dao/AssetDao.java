@@ -1,7 +1,6 @@
 package org.medplus.assetmanagementcore.dao;
 import java.util.List;
 
-import org.medplus.assetmanagementcore.exceptions.EmployeeException;
 import org.medplus.assetmanagementcore.model.Asset;
 import org.medplus.assetmanagementcore.model.AssetMapping;
 import org.medplus.assetmanagementcore.model.NewTypeRequest;

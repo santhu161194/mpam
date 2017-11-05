@@ -2,14 +2,12 @@ package org.medplus.assetmanagementcore.model;
 
 import java.util.Date;
 
-import org.medplus.assetmanagementcore.utils.AssetType;
-
 
 public class Request {
 	
 	private String employeeId;
 	
-	private AssetType assetType;
+	private String assetType;
 	
 	private Date requestDate;
 	
@@ -27,15 +25,15 @@ public class Request {
 		this.employeeId = employeeId;
 	}
 
-	public AssetType getAssetType() {
+		public String getAssetType() {
 		return assetType;
 	}
 
-	public void setAssetType(AssetType assetType) {
+	public void setAssetType(String assetType) {
 		this.assetType = assetType;
 	}
 
-	public Date getRequestDate() {
+		public Date getRequestDate() {
 		return requestDate;
 	}
 

@@ -1,7 +1,7 @@
 package org.medplus.assetmanagementcore.model;
 import java.util.Date;
+
 import org.medplus.assetmanagementcore.utils.AssetStatus;
-import org.medplus.assetmanagementcore.utils.AssetType;
 public class Asset {
 	private long assetId;
 
@@ -9,7 +9,7 @@ public class Asset {
 
 	private String assetName;
 
-	private AssetType assetType;
+	private String assetType;
 
 	private double cost;
 
@@ -59,11 +59,13 @@ public class Asset {
 		this.createdBy = createdBy;
 	}
 
-	public AssetType getAssetType() {
+
+
+	public String getAssetType() {
 		return assetType;
 	}
 
-	public void setAssetType(AssetType assetType) {
+	public void setAssetType(String assetType) {
 		this.assetType = assetType;
 	}
 

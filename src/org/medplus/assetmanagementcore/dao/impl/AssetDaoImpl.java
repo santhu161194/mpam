@@ -40,7 +40,7 @@ public class AssetDaoImpl implements AssetDao {
 				e.setAssetId(rs.getLong(1));
 				e.setSerialNumber(rs.getString(2));
 				e.setAssetName(rs.getString(3));
-				e.setAssetType(AssetType.valueOf(rs.getString(4)));
+				e.setAssetType((rs.getString(4)));
 				e.setCost(rs.getDouble(5));
 				e.setStatus(AssetStatus.getName(rs.getString(6)));
 				e.setCreatedBy(rs.getString(7));
@@ -134,7 +134,7 @@ public class AssetDaoImpl implements AssetDao {
 						asset.setAssetId(rs.getLong(1));
 						asset.setSerialNumber(rs.getString(2));
 						asset.setAssetName(rs.getString(3));
-						asset.setAssetType(AssetType.valueOf(rs.getString(4)));
+						asset.setAssetType((rs.getString(4)));
 						asset.setCost(rs.getDouble(5));
 						asset.setStatus(AssetStatus.getName(rs.getString(6)));
 						asset.setCreatedBy(rs.getString(7));
@@ -159,7 +159,7 @@ public class AssetDaoImpl implements AssetDao {
 						asset.setAssetId(rs.getLong(1));
 						asset.setSerialNumber(rs.getString(2));
 						asset.setAssetName(rs.getString(3));
-						asset.setAssetType(AssetType.valueOf(rs.getString(4)));
+						asset.setAssetType((rs.getString(4)));
 						asset.setCost(rs.getDouble(5));
 						asset.setStatus(AssetStatus.getName(rs.getString(6)));
 						asset.setCreatedBy(rs.getString(7));
@@ -181,7 +181,7 @@ public class AssetDaoImpl implements AssetDao {
 						Request request = new Request();
 						request.setEmployeeId(rs.getString(1));
 						request.setEmployeeName(rs.getString(2));
-						request.setAssetType(AssetType.valueOf(rs.getString(3)));
+						request.setAssetType((rs.getString(3)));
 						request.setRequestDate(new java.util.Date(rs.getDate(4)
 								.getTime()));
                          request.setStatus(rs.getString(5));
@@ -225,7 +225,7 @@ public class AssetDaoImpl implements AssetDao {
 							throws SQLException {
 						Request request = new Request();
 						request.setEmployeeId(rs.getString(1));
-						request.setAssetType(AssetType.valueOf(rs.getString(2)));
+						request.setAssetType((rs.getString(2)));
 						request.setRequestDate(new java.util.Date(rs.getDate(3)
 								.getTime()));
                         request.setStatus(rs.getString(4));
@@ -396,7 +396,7 @@ public class AssetDaoImpl implements AssetDao {
 							asset.setAssetId(rs.getLong(1));
 							asset.setSerialNumber(rs.getString(2));
 							asset.setAssetName(rs.getString(3));
-							asset.setAssetType(AssetType.valueOf(rs
+							asset.setAssetType((rs
 									.getString(4)));
 							asset.setCost(rs.getDouble(5));
 							asset.setStatus(AssetStatus.getName(rs.getString(6)));
@@ -492,7 +492,7 @@ public class AssetDaoImpl implements AssetDao {
 						asset.setAssetId(rs.getInt(1));
 						asset.setSerialNumber(rs.getString(2));
 						asset.setAssetName(rs.getString(3));
-						asset.setAssetType(AssetType.valueOf(rs.getString(4)));
+						asset.setAssetType((rs.getString(4)));
 						asset.setCost(rs.getDouble(5));
 						asset.setStatus(AssetStatus.getName(rs.getString(6)));
 						asset.setCreatedBy(rs.getString(7));

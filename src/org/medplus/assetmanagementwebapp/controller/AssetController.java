@@ -232,7 +232,6 @@ public class AssetController implements HandlerExceptionResolver {
 		
 			mav.addObject("newAssetRequests", newAssetRequests);
 			getAllAssetRequests = assetService.getAllAssetRequests();
-			System.out.println("VAIO");
 			mav.addObject("assetRequests", getAllAssetRequests);
 
 		} catch (AssetException e) {
@@ -437,7 +436,7 @@ public class AssetController implements HandlerExceptionResolver {
 
 	@RequestMapping(value = "/removeAssetRequest", method = RequestMethod.GET)
 	public String RemoveRequest(@RequestParam("employeeId") String employeeId,
-			@RequestParam("type") AssetType type) {
+			@RequestParam("type") String type) {
 		Request request = new Request();
 		request.setEmployeeId(employeeId);
 		request.setAssetType(type);
