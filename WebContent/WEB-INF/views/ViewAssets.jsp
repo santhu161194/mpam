@@ -51,8 +51,19 @@ $(document).ready(function(){
 </head>
 <body>
 	
-<h4 align="right"><a class="showhide" id="addAsset">add Asset </a><tr></tr><a class="showhide" id="addAssetType">add Asset Type</a><tr></tr><a class="showhide" id="getAllocatedAssets">Deallocate asset</a></h4>	
-
+<h4 align="right">
+<table>
+<tr>
+<td>
+<a class="showhide" id="addAsset" >add Asset </a>
+</td><td>
+<a class="showhide" id="addAssetType">add Asset Type</a>
+</td><td>
+<a class="showhide" id="getAllocatedAssets">Deallocate asset</a>
+</td>
+</tr>
+</table>
+</h4>	
 
 	<div id="content">
 		<h3 align="center">${viewdetails}</h3>

@@ -51,7 +51,7 @@ $(document).ready(function(){
 	<h4><j:out value="${message}"></j:out></h4>
 		<input class="form-control" id="myInput" type="text">
 	
-	<div style="overflow:scroll;height:180px;width:100%;overflow:auto">
+	<div style="overflow:scroll;height:280px;width:100%;overflow:auto">
 	<table border="2">
 		<tr>
 			<th> EmployeeId
@@ -74,7 +74,7 @@ $(document).ready(function(){
 				<td><j:out value="${assetReq.assetName} "></j:out></td>
 				<td><j:out value="${assetReq.assignedBy} "></j:out></td>
 				<td><j:out value="${assetReq.assignedDate} "></j:out></td>
-				<td><a class="showhide" id="deallocateAsset?assetID=<j:out value="${assetReq.assetId}"></j:out>&employeeId=">DeAllocate Asset</a></td>>
+				<td><a class="showhide" id="deallocateAsset?assetID=<j:out value="${assetReq.assetId}"></j:out>&employeeId=">Deallocate</a></td>>
 				</tr>
 				</j:forEach>
 				</tbody>

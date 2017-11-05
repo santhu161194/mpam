@@ -559,6 +559,8 @@ public class AssetDaoImpl implements AssetDao {
 						request.setAssetName(rs.getString(3));
 						request.setRequestDate(new java.util.Date(rs.getDate(4)
 								.getTime()));
+						
+						request.setRemark(rs.getString(5));
 
 						return request;
 

@@ -47,7 +47,7 @@ $(document).ready(function(){
   <script>
 function fu(u,t) {
 	$("#id").val(t);
-	alert(t+u);
+
 	$("#id1").val(u);
 	$("#empId").val(u);
 	$("#type").val(t);
@@ -84,11 +84,20 @@ function fu(u,t) {
 				<td><j:out value="${assetReq.assetType} "></j:out></td>
 				<td><j:out value="${assetReq.requestDate} "></j:out></td>
 				<td><j:out value="${assetReq.status} "></j:out></td>
-			
+			<j:if test="${assetReq.status eq 'Requested'}">
 				<td><a  class="showhide" id="viewAssetsByType?type=<j:out value="${assetReq.assetType}"></j:out>">Allocate</a></td>
+                <td> <a type="button"  data-toggle="modal" data-target="#myModal" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${assetReq.employeeId}','${assetReq.assetType}')">Reject </a></td>
+                
+              </j:if>
+           <j:if test="${assetReq.status ne 'Requested'}">
+           <td></td>
+           <td></td>
+           </j:if>
+              
+             
+              
 <%-- 				<td><a   class="showhide" id="removeAssetRequest?employeeId=<j:out value="${assetReq.employeeId}"></j:out>&type=<j:out value="${assetReq.assetType} "></j:out>">Reject</a></td>
- --%>		<td> <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${assetReq.employeeId}','${assetReq.assetType}')">Reject </a></td>
- 
+ --%>		 
 				</tr>
 				</j:forEach>
 				</tbody>
@@ -121,7 +130,7 @@ function fu(u,t) {
 				<td><j:out value="${newAssetReq.assetType} "></j:out></td>
 				<td><j:out value="${newAssetReq.assetName} "></j:out></td>
 				<td><j:out value="${newAssetReq.requestDate} "></j:out></td>
-				<td> <a type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${newAssetReq.employeeId}','${newAssetReq.assetType}')">Remark </a></td>
+				<td> <a type="button"  data-toggle="modal" data-target="#myModal2" data-first_name="fname" data-last_name="lname" class="confirmDelete" onclick="fu('${newAssetReq.employeeId}','${newAssetReq.assetType}')">Remark </a></td>
 				</tr>
 				</j:forEach>
 				</tbody>
@@ -144,7 +153,7 @@ function fu(u,t) {
           <h4 class="modal-title">Reason</h4>
         </div>
         <div class="modal-body">
-        <p>"Enter Reason for request rejection.. "</p>
+        <p>"Enter Reason For Request Rejection.. "</p>
         <input id="id1" name="empId"/>
         <input id="id" name="type"/>
          <textarea rows="4" cols="50" name="reason">
@@ -171,10 +180,10 @@ function fu(u,t) {
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Reason</h4>
+          <h4 class="modal-title">REMARK</h4>
         </div>
         <div class="modal-body">
-        <p>"Enter Reason for request rejection.. "</p>
+        <p>"Enter Remark.. "</p>
         <input id="empId" name="empId"/>
         <input id="type" name="type"/>
          <textarea rows="4" cols="50" name="reason">

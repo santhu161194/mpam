@@ -51,12 +51,7 @@ public class AssetController implements HandlerExceptionResolver {
 	EmployeeService employeeService;
 	@Autowired
 	JdbcTemplate template;
-	@RequestMapping(value = "/tempurl", method = RequestMethod.GET)
-    public ModelAndView go(){
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("EmpHome");
-		return mav;
-	}
+	
 	
 	@RequestMapping(value = "/addAsset", method = RequestMethod.GET)
 	public ModelAndView getAssetForm() {
@@ -79,7 +74,7 @@ public class AssetController implements HandlerExceptionResolver {
 	@RequestMapping(value = "/addAsset", method = RequestMethod.POST)
 	public ModelAndView addAsset(@ModelAttribute("asset") Asset asse,
 			BindingResult result) {
-		ModelAndView mav = new ModelAndView("AdminHome");
+		ModelAndView mav = new ModelAndView("Home");
 		String msg = null;
 		String response;
 		try {
@@ -204,7 +199,7 @@ public class AssetController implements HandlerExceptionResolver {
 		String message = null;
 		String response = null;
 		try {
-			System.out.println("Deallocating");
+			
 			response = assetService.deAllocateAsset(Long.parseLong(assetID),
 					deassignedBy);
 			System.out.println(response);
@@ -309,7 +304,7 @@ public class AssetController implements HandlerExceptionResolver {
 			@RequestParam("remarks") String remarks,
 			HttpServletRequest request, HttpServletResponse response) {
 		String userName="";
-		ModelAndView mav = new ModelAndView("EmpHome");
+		ModelAndView mav = new ModelAndView("Home");
 		String msg = 	null;
        HttpSession session=request.getSession(false);
        if(session!=null)
@@ -348,7 +343,7 @@ public class AssetController implements HandlerExceptionResolver {
 			@RequestParam("type") String type, HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		ModelAndView mav = new ModelAndView("Request");
+		ModelAndView mav = new ModelAndView("Home");
 		String requestedBy="";
 	       HttpSession session=request.getSession(false);
 	       if(session!=null)
@@ -357,8 +352,8 @@ public class AssetController implements HandlerExceptionResolver {
 		try {
 			msg = assetService.saveAssetRequest(type,
 					requestedBy,remark);
-			mav.addObject("message", msg);
-			mav.addObject("message","Request posted successfully");
+			//mav.addObject("message", msg);
+			mav.addObject("message","Request posted successfully for type:-"+type);
 		} catch (AssetException | AuthenticationException e) {
 			mav.addObject("message", e.getMessage() + ":" + e);
 		}
@@ -384,7 +379,7 @@ public class AssetController implements HandlerExceptionResolver {
 	@RequestMapping(value = "/UpdateAsset", method = RequestMethod.POST)
 	public ModelAndView updateAsset(@ModelAttribute("asset") Asset asset,
 			HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("AdminHome");
+		ModelAndView mav = new ModelAndView("Home");
 		String msg=null;
 		String result = null;
 		
@@ -490,7 +485,9 @@ public class AssetController implements HandlerExceptionResolver {
 	{
 		
         int count=assetService.updateRequestRemark(reason, requestedby, assettype,"Rejected");
-		ModelAndView mav = new ModelAndView("Home");
+		
+        ModelAndView mav = new ModelAndView("Home");
+        mav.addObject("message", "Request Rejected.. EmployeeId:"+requestedby+" AssetType:"+assettype);
 		return mav;
 	}
 	
@@ -502,6 +499,8 @@ public class AssetController implements HandlerExceptionResolver {
 	{
         int count=assetService.updateNewRemark(reason, requestedby, assettype);
 		ModelAndView mav = new ModelAndView("Home");
+        mav.addObject("message", "Remark send.. EmployeeId:"+requestedby+" AssetType:"+assettype);
+
 		return mav;
 	}
 	
