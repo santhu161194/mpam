@@ -56,9 +56,15 @@ public class AssetController implements HandlerExceptionResolver {
 	@RequestMapping(value = "/addAsset", method = RequestMethod.GET)
 	public ModelAndView getAssetForm() {
 		Asset asset = new Asset();
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("Asset");
+		List<String> types;
+		try {
+			types = assetService.getAllAssetTypes();
+			mav.addObject("types",types);
+		} catch (AssetException e) {
+			mav.addObject("message", "No Assets to view");
+		}
 		mav.addObject(asset);
-		mav.setViewName("Asset");
 		return mav;
 	}
 
@@ -138,10 +144,14 @@ public class AssetController implements HandlerExceptionResolver {
 		try {
 			rows = assetService.allocateAsset(employeeID,
 					Long.parseLong(assetID), assignedBy);
-		} catch (NumberFormatException | AssetException
+		} catch (NumberFormatException 
 				| AuthenticationException | EmployeeException e1) {
 
 			message="Invalid EmployeeId";
+		}
+		catch(AssetException ee){
+			message="Asset Exception";
+
 		}
 		if (rows.equals("success")) {
 			if (file!=null&&!file.isEmpty()) {

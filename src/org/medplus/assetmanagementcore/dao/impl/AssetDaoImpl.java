@@ -3,6 +3,7 @@ package org.medplus.assetmanagementcore.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +67,8 @@ public class AssetDaoImpl implements AssetDao {
 						pst.setString(5, asset.getStatus().value);
 						pst.setString(6, asset.getCreatedBy());
 						pst.setDate(7, new java.sql.Date(new Date().getTime()));
+						//pst.setTimestamp(7, new Timestamp(System.currentTimeMillis()));
+						pst.setString(8, asset.getModel());
 					}
 				});
 		return resultCount;
@@ -256,9 +259,11 @@ public class AssetDaoImpl implements AssetDao {
 						pst.setDate(5, new java.sql.Date(new Date().getTime()));
 					}
 				});
-		if (resultCount > 0)
+		if (resultCount > 0){
 			resultCountLog = updateMappingToLog(assetId,
 					AssetAllocation.Allocated);
+			
+		}
 		int requestResult=updateRequestStatus(assignedTo,"Allocated",assetId);
 
 		return resultCountLog;

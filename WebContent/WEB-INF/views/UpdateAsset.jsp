@@ -113,7 +113,9 @@ span {
 				<td>AssetType</td>
 				<td><s:input path="assetType" cssClass="form" id="assetType" required="true" readonly="true"/></td>
 			</tr>
+			
 
+			
 			<tr>
 				<td>cost</td>
 				<td><s:input path="cost" cssClass="form" id="cost" required="true"/><span

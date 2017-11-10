@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="j"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -106,34 +107,22 @@ span {
 		</div>
 
 <table align="center">
-
-<tr><td>serialNumber</td><td><s:input path="serialNumber" cssClass="form" id = "serialNumber"/><span id = "serial_error"></span></td></tr>
-<tr><td>assetName</td><td><s:input path="assetName" cssClass="form" id = "assetName"/><span id = "assetName_error"></span></td></tr>
-
-
-<%-- <tr><td>Asset Type</td><td><select>
-	<option value = "Laptop" name="assetType">Laptop</option>
-	<option value = "Desktop" name="assetType">Desktop</option>
-	<option value = "Monitor" name="assetType">Monitor</option>
-	<option value = "Mouse" name="assetType">Mouse</option>
-	<option value = "Keyboard" name="assetType">Keyboard</option>	
-</select></td></tr>  --%>
- 
 <tr><td>Select Asset Type:</td>
     <td>
          <select name="assetType" >
-         <option value="Laptop" name="assetType">Laptop</option>
-         <option value="Desktop" name="assetType">Desktop</option>
-         <option value="Mouse" name="assetType">Mouse</option>
-         <option value="Keyboard" name="assetType">Keyboard</option>
+         <j:forEach var="type" items="${types}">
+     <option value="${type}">${type}</option></j:forEach>
        </select>
    </td></tr>
+<tr><td>serialNumber/Service Tag</td><td><s:input path="serialNumber" cssClass="form" id = "serialNumber"/><span id = "serial_error"></span></td></tr>
+<tr><td>assetName/Manufacturer</td><td><s:input path="assetName" cssClass="form" id = "assetName"/><span id = "assetName_error"></span></td></tr>
+<tr><td>Model</td><td><s:input path="model" cssClass="form" id = "model"/></td></tr>
 <tr><td>Enter cost</td><td><s:input path="cost" cssClass="form" id = "cost"/><span id = "cost_error"></span></td></tr>
-<tr><td>Select Status</td>
-<td><input type = "radio" name = "status" value = "Available" id = "status" checked>Available
-<input type = "radio" name = "status" value = "NotAvailable" id = "status">Not Available<span id = "status_error"></span>
+<tr><td></td>
+<td><input type = "radio" name = "status" value = "Available" id = "status" checked hidden="true">
+<input type = "radio" name = "status" value = "NotAvailable" id = "status" hidden="true"><span id = "status_error"></span>
 </td></tr>
-<tr><td>createdBy</td><td><s:input path="createdBy" cssClass="form" id = "createdBy" value="${username}" readonly="true"/><span id = "createdBy_error"></span></td></tr>
+<tr><td></td><td><s:input path="createdBy" cssClass="form" id = "createdBy" value="${username}" readonly="true" hidden="true"/><span id = "createdBy_error"></span></td></tr>
 <tr><td></td><td><input type="submit" value="Submit" style="align:center" onclick="return onSubmit()"></td></tr>
 </table>
 

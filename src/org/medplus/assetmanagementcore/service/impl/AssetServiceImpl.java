@@ -225,14 +225,18 @@ public class AssetServiceImpl implements AssetService{
 
 		if (assetId < 0 || asignedBy.isEmpty() || assignedTo.isEmpty()
 				|| asignedBy == null) {
+			System.out.println("2");
+
 			throw new AssetException(" Exception:Asset Allocation");
 		}
 		
-		if (employeeService.checkRoles(asignedBy) != null
-				&& !(employeeService.checkRoles(asignedBy).contains("edp"))) {
+		/*if (employeeService.checkRoles(asignedBy) != null
+				&& !(employeeService.checkRoles(asignedBy).contains("admin"))) {
+			System.out.println("2");
+
 			throw new AuthenticationException(
 					"Authentication Exception ..");
-		}
+		}*/
 		if (dao.getAsset(assetId) != null
 				&& dao.getAsset(assetId).getStatus().value.equals("N")) {
 			return "Asset not Available";
@@ -247,10 +251,13 @@ public class AssetServiceImpl implements AssetService{
 				return "Unable to Allocate Asset";
              }
              catch(DataIntegrityViolationException e){
+     			
+               System.out.println("ala exe:"+e);
  				throw  new AssetException(" Asset Not Available",e);
  			}
  			
  			catch (DataAccessException e) {
+
  					throw new AssetException("Asset Allocation Exception",e);
  			}
 		}
@@ -263,10 +270,10 @@ public class AssetServiceImpl implements AssetService{
 		{
 			throw new AssetException(" Exception:Asset Deallocation");
 		}
-		if(employeeService.checkRoles(deallocatedBy)!=null&&!(employeeService.checkRoles(deallocatedBy).contains("edp")))
+		/*if(employeeService.checkRoles(deallocatedBy)!=null&&!(employeeService.checkRoles(deallocatedBy).contains("edp")))
 		{
 			throw new AuthenticationException("Authentication Exception ..");
-		}
+		}*/
 		try{
 		 int result=dao.deAllocateAsset( assetId, deallocatedBy);
 		 if(result>0){ 
